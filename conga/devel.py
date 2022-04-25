@@ -4953,4 +4953,3 @@ def create_conga_hits_adata(
     #             scores *= rescale_factor_for_self_features
 
     #     A[ii,:] = scores
->>>>>>> master
