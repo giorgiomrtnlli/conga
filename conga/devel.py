@@ -2385,7 +2385,7 @@ def predict_T_cell_subset (adata, model = 'gradientBoost', use_raw = True):
     #             scores *= rescale_factor_for_self_features
 
     #     A[ii,:] = scores
-=======
+
 ################################################################################
 ##
 ## this file is a place to put code that is experimental
