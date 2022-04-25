@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ################################################################################
 ##
 ## this file is a place to put code that is experimental
