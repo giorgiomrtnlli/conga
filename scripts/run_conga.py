@@ -743,6 +743,11 @@ else:
     adata.obs['nndists_gex'] = nndists_gex
     adata.obs['nndists_tcr'] = nndists_tcr
 
+    #save as a pickle for reruns
+    nbr_pickle = args.outfile_prefix+'_all_nbrs.pkl'
+    f = open(nbr_pickle,"wb")
+    pickle.dump(all_nbrs,f)
+    f.close()
 #
 if args.analyze_junctions:
     tcrs = conga.preprocess.retrieve_tcrs_from_adata(adata)
@@ -1092,11 +1097,6 @@ except:
     adata.uns['conga_results'] = save
 
 adata.obs.to_csv(args.outfile_prefix+'_final_obs.tsv', sep='\t')
-
-nbr_pickle = args.outfile_prefix+'_all_nbrs.pkl'
-f = open(nbr_pickle,"wb")
-pickle.dump(all_nbrs,f)
-f.close()
 
 html_summary_file = args.outfile_prefix+'_results_summary.html'
 conga.plotting.make_html_summary(
