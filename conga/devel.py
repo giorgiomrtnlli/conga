@@ -2297,21 +2297,24 @@ def predict_T_cell_subset (adata, model = 'gradientBoost', use_raw = True):
     T_class_model = pd.read_pickle(model_file)
     gs_df = pd.read_csv(T_class_module_genes, sep='\t' )
 
-    # score modules
-    subsets = gs_df.cluster.unique()
+    
     # check if scores logged already
-    if all(score in adata.obs.columns.tolist() for score in subsets) is False:
+    if 'Tcell_subset_scores' not in adata.uns_keys():
+        subsets = gs_df.cluster.unique()
         for subset in subsets:
             gene_set = gs_df.gene[gs_df.cluster == subset].tolist()
             sc.tl.score_genes(adata, gene_set, score_name = subset, use_raw=use_raw)
-   
-    cols_keeps = subsets.tolist()
-    X = adata.obs[cols_keeps]
-    
+        cols_keeps = subsets.tolist()
+        print("logging adata.uns['Tcell_subset_scores']")
+        adata.uns['Tcell_subset_scores'] = adata.obs[cols_keeps].copy()
+        adata.obs = adata.obs.drop(columns = cols_keeps )
+
     # prediction based on module scores
+    X = adata.uns['Tcell_subset_scores']
     y_pred = T_class_model.predict(X)
     adata.obs[f'T_cell_subset_{model}'] = y_pred
-    
+    print(f"Prediction logged in adata.obs['T_cell_subset_{model}']")
+
     return adata
 
 
