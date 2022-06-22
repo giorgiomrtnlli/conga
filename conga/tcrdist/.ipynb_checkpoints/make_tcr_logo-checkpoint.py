@@ -507,11 +507,15 @@ def make_tcr_logo_for_tcrs(
                 for tag in 'gene genes rep reps'.split():
                     info[f'{vj}{ab}_{tag}'] = gene
                 # LADIES AND GENTS YOU ARE ABOUT TO WITNESS THE WORST PROGRAMMING MANNER EVER
+                # SINCE I CANNOT UNDERSTAND WHERE DOES THIS COUNT_REP COMES FROM
+                # I WILL QUIETLY REMOVE IT AND SUSBTITUTE THE STRING IT CREATES FROM THE DATA POINT
+                # WITH A BRILLIANTY ARTIFICALLY CREATED ONE FROM MYSELF :)
                 # ORIGINAL HERE:
                 # info[f'{vj}{ab}_countreps'] = all_genes.all_genes[organism][gene].count_rep
                 info[f'{vj}{ab}_countreps'] = gene.split('*')[0]
         infos.append(info)
 
+    print(infos)
     if tcrdist_calculator is None:
         tcrdist_calculator = tcr_distances.TcrDistCalculator(organism)
 
